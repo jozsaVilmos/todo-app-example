@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit todo</title>
+</head>
+<body>
+    <h1>Edit</h1>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Edit</th>
+        </tr>
+        <tr>
+            <form th:action="'/edit-todo/' + ${todo.getOwner().getId()}" method="post" th:object="${todo}">
+                <td>
+                    <input type="text" th:value="${todo.title}" th:field="*{title}" />
+                </td>
+                <td>
+                    <input type="checkbox" th:checked="${todo.isDone()}" th:field="*{done}" />
+                </td>
+                <td>
+                    <input type="hidden" th:value="*{id}" th:field="*{id}" />
+                    <input type="submit" value="Edit" />
+                </td>
+            </form>
+        </tr>
+    </table>
+</body>
+</html>

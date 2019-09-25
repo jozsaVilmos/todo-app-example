@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title th:text="${user.name} + '\'s todos'"></title>
+</head>
+<body>
+    <h1>Add new todo bossman</h1>
+    <form action="/add-todo" method="post">
+        <input type="hidden" name="userId" th:value="${user.id}" />
+        <input type="text" name="title" />
+        <input type="submit" value="Add" />
+    </form>
+    <h1 th:text="${user.name} + '\'s todos'"></h1>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Check</th>
+            <th>Edit</th>
+            <th>Kill</th>
+        </tr>
+        <tr th:each="todo : ${user.todos}">
+            <td th:text="${todo.title}"></td>
+            <td>
+                <input type="checkbox" th:checked="${todo.isDone()}" disabled />
+            </td>
+            <td>
+                <form action="/check-todo" method="get">
+                    <input type="hidden" th:name="userId" th:value="${user.id}" />
+                    <input type="hidden" th:name="todoId" th:value="${todo.id}" />
+                    <input type="submit" value="Check" />
+                </form>
+            </td>
+            <td><a th:href="'/edit-todo?todoId=' + ${todo.id}">Edit</a></td>
+            <td>
+                <form action="/delete-todo" method="get">
+                    <input type="hidden" th:name="userId" th:value="${user.id}" />
+                    <input type="hidden" th:name="todoId" th:value="${todo.id}" />
+                    <input type="submit" value="Delete" />
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
