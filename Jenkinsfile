@@ -1,8 +1,5 @@
 pipeline {
-    agent any
-    tools {
-        gradle "GRADLE_LATEST"
-    }
+    agent { docker { image 'gradle:latest' } }
     stages {
         stage('Gradle') {
             steps {
