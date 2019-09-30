@@ -1,9 +1,12 @@
 pipeline {
-    agent any 
+    agent any
+    tools {
+        gradle "Alopex Malac Gradle"
+    }
     stages {
-        stage('Stage 1') {
+        stage('Gradle') {
             steps {
-                echo 'Hello world!' 
+                sh 'gradle build'
             }
         }
     }
